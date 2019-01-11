@@ -17,17 +17,12 @@ RUN python3 -m venv /isso \
 
 # Third, create final repository
 FROM python:3-slim-stretch
+RUN apt-get install inotify-tools
 WORKDIR /isso/
+RUN chmod +x boot.sh
 COPY --from=1 /isso .
 
 # Configuration
-VOLUME /db /config
 EXPOSE 8080
-ENV ISSO_SETTINGS /config/isso.cfg
-CMD ["/isso/bin/gunicorn", "-b", "0.0.0.0:8080", "-w", "4", "--preload", "isso.run"]
-
-# Example of use:
-#
-# docker build -t isso .
-# docker run -it --rm -v /opt/isso:/config -v /opt/isso:/db -v $PWD:$PWD isso /isso/bin/isso -c \$ISSO_SETTINGS import disqus.xml
-# docker run -d --rm --name isso -p 8080:8080 -v /opt/isso:/config -v /opt/isso:/db isso
+ENV ISSO_SETTINGS=/config/isso.cfg
+CMD ["./boot.sh"]
