@@ -16,8 +16,8 @@ RUN python3 -m venv /isso \
  && python setup.py install
 
 # Third, create final repository
-FROM python:3-slim-stretch
-RUN apt-get install inotify-tools
+FROM python:3.72-alpine3.8
+RUN apk add inotify-tools
 WORKDIR /isso/
 RUN chmod +x boot.sh
 COPY --from=1 /isso .
