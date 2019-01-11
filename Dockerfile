@@ -19,8 +19,8 @@ RUN python3 -m venv /isso \
 FROM python:3.7.2-alpine3.8
 RUN apk add inotify-tools
 WORKDIR /isso/
-RUN chmod +x boot.sh
 COPY --from=1 /isso .
+RUN chmod +x boot.sh
 
 # Configuration
 EXPOSE 8080
