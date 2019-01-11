@@ -20,6 +20,7 @@ FROM python:3.7.2-alpine3.8
 RUN apk add inotify-tools
 WORKDIR /isso/
 COPY --from=1 /isso .
+COPY ./boot.sh .
 RUN chmod +x boot.sh
 
 # Configuration
