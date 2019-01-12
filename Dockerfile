@@ -21,9 +21,10 @@ RUN apk add inotify-tools
 WORKDIR /isso/
 COPY --from=1 /isso .
 COPY ./boot.sh .
+COPY ./isso.cfg /var/lib/config/isso.cfg
 RUN chmod +x boot.sh
 
 # Configuration
 EXPOSE 8080
-ENV ISSO_SETTINGS=/config/isso.cfg
+ENV ISSO_SETTINGS=/var/lib/config/isso.cfg
 CMD ["./boot.sh"]
