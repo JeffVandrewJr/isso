@@ -17,7 +17,7 @@ RUN python3 -m venv /isso \
 
 # Third, create final repository
 FROM python:3.7.2-alpine3.8
-RUN apk add inotify-tools
+RUN apk add inotify-tools libc6-compat
 WORKDIR /isso/
 COPY --from=1 /isso .
 COPY ./boot.sh .
