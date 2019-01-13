@@ -21,7 +21,6 @@ RUN apk add inotify-tools libc6-compat
 WORKDIR /isso/
 COPY --from=1 /isso .
 COPY ./boot.sh .
-COPY ./isso.cfg /var/lib/config/isso.cfg
 RUN chmod +x boot.sh
 
 # Configuration
