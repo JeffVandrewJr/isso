@@ -1,6 +1,12 @@
 #!/bin/sh
 
-trap "killall5 -15" 15
+_docker () {
+    pkill gunicorn
+    killall5 -15
+    exit 0
+}
+
+trap _docker SIGINT SIGTERM
 
 /isso/bin/gunicorn -b 0.0.0.0:8080 -w 3 --preload isso.run &
 
