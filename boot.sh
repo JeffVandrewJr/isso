@@ -1,6 +1,6 @@
 #!/bin/sh
 
-trap "pkill gunicorn" SIGTERM
+trap "kilall5 -15" 15
 
 /isso/bin/gunicorn -b 0.0.0.0:8080 -w 3 --preload isso.run &
 
