@@ -2,7 +2,7 @@
 
 _docker () {
     pkill gunicorn
-    killall5 -15
+    killall5 -9
     exit 0
 }
 
