@@ -2,6 +2,7 @@
 
 _docker () {
     pkill gunicorn
+    pkill inotifywait
     killall5 -9
     exit 0
 }
