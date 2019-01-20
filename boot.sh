@@ -1,5 +1,7 @@
 #!/bin/sh
 
+trap "pkill gunicorn" SIGTERM
+
 /isso/bin/gunicorn -b 0.0.0.0:8080 -w 3 --preload isso.run &
 
 if [ ! -e /var/lib/config/isso.cfg ]
