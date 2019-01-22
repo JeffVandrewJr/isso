@@ -17,7 +17,7 @@ RUN python3 -m venv /isso \
 
 # Third, create final repository
 FROM python:3.7.2-alpine3.8
-RUN apk add inotify-tools libc6-compat
+RUN apk add --no-cache inotify-tools libc6-compat tini
 WORKDIR /isso/
 COPY --from=1 /isso .
 COPY ./boot.sh .
@@ -26,4 +26,5 @@ RUN chmod +x boot.sh
 # Configuration
 EXPOSE 8080
 ENV ISSO_SETTINGS=/var/lib/config/isso.cfg
+ENTRYPOINT ["/sbin/tini", "-g", "-vvv", "--"]
 CMD ["./boot.sh"]
