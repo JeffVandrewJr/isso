@@ -26,5 +26,5 @@ RUN chmod +x boot.sh
 # Configuration
 EXPOSE 8080
 ENV ISSO_SETTINGS=/var/lib/config/isso.cfg
-ENTRYPOINT ["/sbin/tini", "-g", "-vvv", "--"]
+ENTRYPOINT ["/sbin/tini", "-g", "--"]
 CMD ["./boot.sh"]
