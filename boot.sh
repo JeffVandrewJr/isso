@@ -5,7 +5,7 @@
 if [ ! -e /var/lib/config/isso.cfg ]
 then
     echo Create config.
-    touch /var/lib/config/isso.config
+    touch /var/lib/config/isso.cfg
 fi
 
 while true; do
