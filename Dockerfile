@@ -16,18 +16,15 @@ RUN python3 -m venv /isso \
  && python setup.py install
 
 # Third, create final repository
-FROM python:3-slim-stretch
+FROM python:3.7.2-alpine3.8
+RUN apk add --no-cache inotify-tools libc6-compat tini
 WORKDIR /isso/
 COPY --from=1 /isso .
+COPY ./boot.sh .
+RUN chmod +x boot.sh
 
 # Configuration
-VOLUME /db /config
 EXPOSE 8080
-ENV ISSO_SETTINGS /config/isso.cfg
-CMD ["/isso/bin/gunicorn", "-b", "0.0.0.0:8080", "-w", "4", "--preload", "isso.run"]
-
-# Example of use:
-#
-# docker build -t isso .
-# docker run -it --rm -v /opt/isso:/config -v /opt/isso:/db -v $PWD:$PWD isso /isso/bin/isso -c \$ISSO_SETTINGS import disqus.xml
-# docker run -d --rm --name isso -p 8080:8080 -v /opt/isso:/config -v /opt/isso:/db isso
+ENV ISSO_SETTINGS=/var/lib/config/isso.cfg
+ENTRYPOINT ["/sbin/tini", "-g", "--"]
+CMD ["./boot.sh"]
